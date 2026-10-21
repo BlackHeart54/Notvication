@@ -1,0 +1,6 @@
+pyTelegramBotAPI
+Flask
+python-dotenv
+supabase
+requests
+aiohttp
