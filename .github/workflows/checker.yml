@@ -1,0 +1,33 @@
+name: Run Kurdfilm Notifier
+
+on:
+  schedule:
+    - cron: '0 * * * *' # ئەمە واتە هەموو کاتژمێرێک جارێک کار دەکات (دەتوانیت گۆڕانکاری تێدا بکەیت)
+  workflow_dispatch: # ئەمەش ڕێگەت پێدەات بە دەستیش لێی بدەیت و کارى پێبکەیت لە گیتهەب
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run notifier script
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+          MY_ID: ${{ secrets.MY_ID }}
+        run: |
+          python notifier.py
