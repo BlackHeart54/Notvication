@@ -8,9 +8,12 @@ on:
 jobs:
   run-script:
     runs-on: ubuntu-latest
+    timeout-minutes: 10 # لێرەدا کاتەکەت دیاری کرد کە تا ١٠ خولەک ڕێگەی پێدەدەیت کار بکات
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      # ... باقی کۆدەکان وەک خۆیان دەمێننەوە
+
 
       - name: Set up Python
         uses: actions/setup-python@v5
